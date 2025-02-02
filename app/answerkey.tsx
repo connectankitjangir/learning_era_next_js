@@ -1,78 +1,86 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChartLine,
+  faChartBar,
+  faCalculator,
+} from "@fortawesome/free-solid-svg-icons";
 
-const AnswerKeySubmission = () => {
-  const [answerKeys, setAnswerKeys] = useState<{
-    title: string;
-    description: string;
-    button_name: string;
-  }[]>([]);
+// Dummy data for buttons (Replace with dynamic data)
+const answerKeyData = [
+  { button_name: "SSC CGL" },
+  { button_name: "BANK PO" },
+  { button_name: "UPSC" },
+];
+
+const AnswerKeySection = () => {
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    const fetchAnswerKeys = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/answerkey/');
-        const data = await response.json();
-        setAnswerKeys(data);
-      } catch (error) {
-        console.error('Error fetching answer keys:', error);
-      }
-    };
-
-    fetchAnswerKeys();
+    setAnimate(true);
+    const interval = setInterval(() => {
+      setAnimate(false);
+      setTimeout(() => setAnimate(true), 100);
+    }, 4000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Answer Key Submission
-          </h2>
-          <p className="mt-4 text-lg leading-8 text-gray-600">
-            Submit your answer key to get instant normalized marks and detailed analysis
-          </p>
-        </div>
+    <section className="text-center bg-white mx-6 py-6 dark:bg-gray-900">
+      {/* Title */}
+      <h2 className="text-3xl font-semibold mb-6 md:text-4xl transition-all duration-300 ease-in-out">
+        Submit your Answer Key
+      </h2>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {answerKeys.map((key, index) => (
-            <div 
-              key={index}
-              className="flex flex-col p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
-            >
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {key.title}
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Submit your {key.button_name} to get marks and analysis
-              </p>
-              <button
-                className="mt-auto bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors duration-300"
-                title={`Submit your ${key.button_name} to get marks and analysis`}
-              >
-                {key.button_name}
-                <Link href="/answerkey_form">Submit</Link>
-              </button>
-            </div>
-          ))}
-        </div>
+      {/* Animated List */}
+      <ul className="mb-6 space-y-4">
+        {[ 
+          { icon: faChartLine, text: "To get Raw & Normalized marks" },
+          { icon: faChartBar, text: "For correct & instant result analysis" },
+          { icon: faCalculator, text: "For instant Normalized marks & Cut Off analysis" }
+        ].map((item, index) => (
+          <li
+            key={index}
+            className={`flex items-center justify-center opacity-0 transform transition-all duration-700 ease-in-out
+              ${animate ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-5"}`}
+            style={{ transitionDelay: `${index * 300}ms` }}
+          >
+            <FontAwesomeIcon icon={item.icon} className="mr-3 text-xl text-gradient" />
+            <span className="text-lg">{item.text}</span>
+          </li>
+        ))}
+      </ul>
 
-        <div className="mt-12 text-center">
-          <div className="inline-flex flex-col items-center space-y-2 bg-gray-50 p-6 rounded-lg">
-            <h4 className="font-medium text-gray-900">Why Submit?</h4>
-            <ul className="text-sm text-gray-600 space-y-1">
-              <li>• Get Raw & Normalized marks instantly</li>
-              <li>• Accurate result analysis</li>
-              <li>• Instant Normalized marks calculation</li>
-              <li>• Detailed Cut Off analysis</li>
-            </ul>
-          </div>
-        </div>
+      {/* Dynamic Buttons */}
+      <div className="flex flex-wrap justify-center gap-6">
+        {answerKeyData.map((key, index) => (
+          <Link
+            key={index}
+            href={`/marks-calculator/${key.button_name.toLowerCase().replace(/\s+/g, "-")}`}
+            className="relative flex items-center justify-center text-lg cursor-pointer rounded-full font-bold 
+                      bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white shadow-xl 
+                      transform hover:scale-110 hover:shadow-2xl transition-all duration-300 ease-in-out 
+                      group px-8 py-4 overflow-hidden"
+          >
+            {/* Hover Overlay */}
+            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+            {/* Animated Gradient Background */}
+            <div className="absolute -inset-full bg-gradient-to-r from-transparent via-white to-transparent 
+                          opacity-20 transform -skew-x-12 transition-transform duration-1000
+                          group-hover:translate-x-full"></div>
+
+            <span className="relative inline-flex items-center z-10">
+              <FontAwesomeIcon icon={faCalculator} className="mr-2 group-hover:animate-bounce text-lg" />
+              {key.button_name.toUpperCase()}
+            </span>
+          </Link>
+        ))}
       </div>
     </section>
   );
 };
 
-export default AnswerKeySubmission;
+export default AnswerKeySection;

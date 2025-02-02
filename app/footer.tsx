@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-white m-6 py-6 text-gray-900">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -17,17 +17,17 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-sm hover:text-white transition-colors">
+                <a href="#" className="text-sm hover:text-gray-700 transition-colors">
                   Answer Key Submission
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm hover:text-white transition-colors">
+                <a href="#" className="text-sm hover:text-gray-700 transition-colors">
                   Exam Reviews
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm hover:text-white transition-colors">
+                <a href="#" className="text-sm hover:text-gray-700 transition-colors">
                   Video Tutorials
                 </a>
               </li>
@@ -44,7 +44,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+        <div className="border-t border-gray-300 mt-8 pt-8 text-center text-sm">
           <p>&copy; {new Date().getFullYear()} ExamPrep. All rights reserved.</p>
         </div>
       </div>

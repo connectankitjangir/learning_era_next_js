@@ -1,29 +1,63 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGraduationCap, faKeyboard } from "@fortawesome/free-solid-svg-icons";
+import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { useMemo } from "react";
 
 const WelcomeSection = () => {
-  return (
-    <section className="min-h-[60vh] flex items-center justify-center relative overflow-hidden pt-16">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/90 to-purple-900/90" />
-      </div>
+  // Memoizing icons to prevent unnecessary re-renders
+  const icons = useMemo(
+    () => ({
+      graduation: <FontAwesomeIcon icon={faGraduationCap} className="mr-2 animate-bounce" />,
+      youtube: <FontAwesomeIcon icon={faYoutube} className="mr-2 animate-pulse" />,
+      keyboard: <FontAwesomeIcon icon={faKeyboard} className="mr-2 animate-pulse" />,
+    }),
+    []
+  );
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
+  return (
+    <section className="bg-[#e6b4b4] py-6 animate-fadeIn dark:bg-gray-600 m-6 dark:text-white">
+      <div className="container mx-auto text-center">
+        {/* Title */}
+        <h1 className="text-5xl font-bold mb-4 pb-2.5 text-[rgb(37,8,8)] font-['Protest_Guerrilla'] animate-slideInDown dark:text-white flex justify-center items-center">
+          {icons.graduation}
           Welcome to Learning Era
         </h1>
-        <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto">
-          Empowering minds through innovative online education. Start your learning journey today.
+
+        {/* Subtitle */}
+        <p className="text-2xl italic mb-4 font-mono animate-slideInUp">
+          Your gateway to professional education and exam success!
         </p>
-        <div className="flex gap-4 justify-center">
-          <button className="bg-white text-indigo-900 hover:bg-opacity-90 transition-colors duration-200 px-8 py-3 rounded-full text-lg font-medium">
-            Get Started
-          </button>
-          <button className="border-2 border-white text-white hover:bg-white/10 transition-colors duration-200 px-8 py-3 rounded-full text-lg font-medium">
-            Learn More
-          </button>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap gap-4 justify-center">
+          {/* YouTube Button */}
+          <a
+            href="https://www.youtube.com/@LearningEra/videos"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-3d py-3 px-6 text-lg cursor-pointer rounded-lg uppercase font-bold
+                      transform hover:scale-110 transition duration-300 ease-in-out
+                      flex items-center bg-red-600 text-white shadow-lg hover:bg-red-700
+                      border-b-4 border-red-800"
+          >
+            {icons.youtube}
+            Watch Our Videos
+          </a>
+
+          {/* Typing Test Button */}
+          <Link
+            href="/typing-home"
+            className="btn-3d py-3 px-6 text-lg cursor-pointer rounded-lg uppercase font-bold
+                      transform hover:scale-110 transition duration-300 ease-in-out
+                      flex items-center bg-blue-600 text-white shadow-lg hover:bg-blue-700
+                      border-b-4 border-blue-800"
+          >
+            {icons.keyboard}
+            Typing Tests
+          </Link>
         </div>
       </div>
     </section>
