@@ -5,13 +5,30 @@ import { faTelegram, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import html2canvas from 'html2canvas';
 
+interface Result {
+  roll_number: string;
+  exam_date: string;
+  name: string;
+  cat1: string;
+  cat2: string;
+  cat3: string;
+  section_1_2_marks: string;
+  section_1_2_marks_with_bonous: string;
+  total_normalized_marks: string;
+  computer_status: string;
+  rank_by_section_1_2_marks: string;
+  rank_by_section_1_2_marks_with_bonous: string;
+  rank_by_total_normalized_marks: string;
+
+}
+
 const SSCResultPage = () => {
   const [rollNumber, setRollNumber] = useState('');
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState<Result | null>(null);
   const [error, setError] = useState('');
-  const [answerKeyLink, setAnswerKeyLink] = useState(''); // Added state for answerKeyLink
+  const [answerKeyLink, setAnswerKeyLink] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
     setResult(null);
@@ -21,7 +38,6 @@ const SSCResultPage = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-
         },
         body: JSON.stringify({ roll_number: rollNumber }),
       });
@@ -36,11 +52,15 @@ const SSCResultPage = () => {
           throw new Error('Network response was not ok');
         }
       } else {
-        const data = await response.json();
+        const data: Result = await response.json();
         setResult(data);
       }
-    } catch (error) {
-      setError('Error fetching results: ' + error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError('Error fetching results: ' + error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     }
   };
 
@@ -68,7 +88,6 @@ const SSCResultPage = () => {
           onChange={(e) => setRollNumber(e.target.value)}
           placeholder="Enter Roll Number"
           required
-
           className="border border-gray-300 rounded-md px-3 py-2"
         />
         <button type="submit" className="ml-2 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white font-bold py-2 px-4 rounded-lg">
@@ -92,7 +111,6 @@ const SSCResultPage = () => {
                 onChange={(e) => setAnswerKeyLink(e.target.value)}
                 placeholder="Enter Answer Key Link"
                 className="border border-gray-300 rounded-md px-3 py-2"
-
               />
               <button
                 onClick={async () => {
@@ -101,7 +119,6 @@ const SSCResultPage = () => {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json',
-
                       },
                       body: JSON.stringify({ link: answerKeyLink }),
                     });
@@ -112,9 +129,12 @@ const SSCResultPage = () => {
                     console.log(data);
                     alert(data.message);
                     window.location.href = '/';
-                    // Handle success (e.g., show a success message)
-                  } catch (error) {
-                    setError('Error submitting answer key link: ' + error.message);
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      setError('Error submitting answer key link: ' + error.message);
+                    } else {
+                      setError('An unknown error occurred');
+                    }
                   }
                 }}
                 className="ml-2 bg-green-500 text-white font-bold py-2 px-4 rounded-lg"
@@ -130,7 +150,6 @@ const SSCResultPage = () => {
                 <th className="border border-gray-300 px-4 py-2 font-bold text-red-500">
                   <FontAwesomeIcon icon={faYoutube} className="mr-1" />
                   /LearningEra
-
                 </th>
               </tr>
             </thead>
@@ -161,19 +180,18 @@ const SSCResultPage = () => {
               </tr>
               <tr>
                 <td className="border border-gray-300 px-4 py-2"><strong>Category 2:</strong></td>
-                <td className="border border-gray-300 px-4 py-2">{result.cat2 == 3 ? 'ESM' : result.cat2 || '-'}</td>
+                <td className="border border-gray-300 px-4 py-2">{result.cat2 === '3' ? 'ESM' : result.cat2 || '-'}</td>
               </tr>
               <tr>
+
                 <td className="border border-gray-300 px-4 py-2"><strong>Category 3:</strong></td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {result.cat3 == 4 ? 'OH' :
-                   result.cat3 == 5 ? 'HH' :
-                   
-                   result.cat3 == 7 ? 'VH' :
-                   result.cat3 == 8 ? 'Other-PWD' :
+                  {result.cat3 === '4' ? 'OH' :
+                   result.cat3 === '5' ? 'HH' :
+                   result.cat3 === '7' ? 'VH' :
+                   result.cat3 === '8' ? 'Other-PWD' :
+
                    result.cat3 || '-'}
-
-
                 </td>
               </tr>
 
@@ -197,7 +215,7 @@ const SSCResultPage = () => {
                 <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.total_normalized_marks) : 'Data not found'}</td>
               </tr>
               <tr className='bg-gray-100'>
-                <td className="border border-gray-300 px-4 py-2 text-blue-500"><strong>Exam Rank</strong></td>
+                <td className="border border-gray-300 px-4 py-2 text-blue-500"><strong>Exam Ranks</strong></td>
                 <td className="border border-gray-300 px-4 py-2 ">
                   <FontAwesomeIcon icon={faTelegram} className="mr-1" />
                   /learning_era
@@ -206,27 +224,23 @@ const SSCResultPage = () => {
 
               <tr>
                 <td className="border border-gray-300 px-4 py-2"><strong>Raw Marks Rank:</strong></td>
-                <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.computer_status === "F" ? 'Disqalified in Computer' : result.rank_by_section_1_2_marks) : 'Data not found'}</td>
+                <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.computer_status === "F" ? 'Disqualified in Computer' : result.rank_by_section_1_2_marks) : 'Data not found'}</td>
               </tr>
-
 
               <tr>
                 <td className="border border-gray-300 px-4 py-2"><strong>Raw Marks with Bonus Rank:</strong></td>
-                <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.computer_status === "F" ? 'Disqalified in Computer' : result.rank_by_section_1_2_marks_with_bonous) : 'Data not found'}</td>
+                <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.computer_status === "F" ? 'Disqualified in Computer' : result.rank_by_section_1_2_marks_with_bonous) : 'Data not found'}</td>
               </tr>
 
               <tr>
                 <td className="border border-gray-300 px-4 py-2"><strong>Normalized Marks Rank:</strong></td>
-                <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.computer_status === "F" ? 'Disqalified in Computer' : result.rank_by_total_normalized_marks) : 'Data not found'}</td>
+                <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.computer_status === "F" ? 'Disqualified in Computer' : result.rank_by_total_normalized_marks) : 'Data not found'}</td>
               </tr>
-
-
             </tbody>
           </table>
           <button onClick={downloadTableAsImage} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
             Download Result as Image
           </button>
-
         </div>
       )}
     </section>

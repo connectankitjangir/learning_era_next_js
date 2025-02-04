@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+import Image from "next/image"; // Importing Image from next/image
 
 const VideoSection = () => {
   // Video data with links
@@ -33,7 +34,7 @@ const VideoSection = () => {
         })
         .catch((error) => console.error("Error fetching video title:", error));
     });
-  }, []);
+  }, [videos]); // Added videos as a dependency
 
   return (
     <div className="m-6 py-6 bg-white text-black rounded-2xl" id="videos">
@@ -45,9 +46,11 @@ const VideoSection = () => {
             className="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition-all duration-300 cursor-pointer"
             onClick={() => window.open(video.link, "_blank")}
           >
-            <img
+            <Image // Changed to <Image> from next/image for optimization
               src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
               alt="Video thumbnail"
+              width={640} // Added width
+              height={360} // Added height
               className="w-full object-cover rounded-lg mb-4"
             />
             <h4 className="text-lg font-semibold mb-4">{videoTitles[video.id] || "Loading..."}</h4>

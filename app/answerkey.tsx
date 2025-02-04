@@ -9,21 +9,24 @@ import {
   faCalculator,
 } from "@fortawesome/free-solid-svg-icons";
 
+interface AnswerKey {
+  button_name: string; // Define the structure of the answer key data
+}
+
 const AnswerKeySection = () => {
   const [animate, setAnimate] = useState(false);
-  const [answerKeyData, setAnswerKeyData] = useState([]);
+  const [answerKeyData, setAnswerKeyData] = useState<AnswerKey[]>([]); // Specify the type for answerKeyData
 
   useEffect(() => {
     // Fetch button names from the API
     const fetchAnswerKeyData = async () => {
       try {
         const response = await fetch("https://api.learningera.co.in/answerkey/");
-        const data = await response.json();
+        const data: AnswerKey[] = await response.json(); // Specify the type for the fetched data
         setAnswerKeyData(data); // Assuming the API returns an array of objects with button_name property
       } catch (error) {
         console.error("Error fetching answer key data:", error);
       }
-
     };
 
     fetchAnswerKeyData();

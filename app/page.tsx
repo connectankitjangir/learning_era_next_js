@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 
 import WelcomeSection from "./welcome_section";
 import PhotoSlider from "./photoslider";

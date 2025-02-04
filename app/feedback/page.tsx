@@ -12,12 +12,12 @@ const FeedbackForm = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -101,7 +101,7 @@ const FeedbackForm = () => {
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               required
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Select Rating
               </option>
               <option value="5">5 - Excellent</option>
@@ -121,7 +121,7 @@ const FeedbackForm = () => {
             <textarea
               id="comments"
               name="comments"
-              rows="4"
+              rows={4}
               value={formData.comments}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"

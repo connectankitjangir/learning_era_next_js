@@ -14,6 +14,7 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTelegram } from "@fortawesome/free-brands-svg-icons";
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'; // Import IconDefinition for type safety
 
 const Header = () => {
   const pathname = usePathname();
@@ -29,7 +30,6 @@ const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center hover:scale-110 transition">
-
           <Image
             src="https://cdn.jsdelivr.net/gh/jangirankit5/cdn/learning%20era%20website/images/logo.jpg"
             alt="Learning Era Logo"
@@ -84,19 +84,21 @@ const Header = () => {
 };
 
 // ✅ Reusable Nav Item Component
+interface NavItemProps {
+  href: string;
+  icon: IconDefinition; // Changed to 'IconDefinition' for better type safety
+  text: string;
+  activePath?: string;
+  external?: boolean;
+}
+
 const NavItem = ({
   href,
   icon,
   text,
   activePath,
   external = false,
-}: {
-  href: string;
-  icon: any;
-  text: string;
-  activePath?: string;
-  external?: boolean;
-}) => {
+}: NavItemProps) => {
   const isActive = activePath === href;
 
   return (

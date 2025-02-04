@@ -22,7 +22,7 @@ const PhotoSlider = () => {
     videoUrl,
     get thumbnail() {
       const videoId = getVideoId(this.videoUrl);
-      return `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+      return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`; // Changed to img.youtube.com
     }
   }));
 
@@ -34,7 +34,7 @@ const PhotoSlider = () => {
     }, 3000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   const openVideo = (url: string) => {
     window.open(url, '_blank');
@@ -62,11 +62,12 @@ const PhotoSlider = () => {
               ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
             onClick={() => openVideo(slide.videoUrl)}
           >
-            {/* Using img tag instead of next/Image since the YouTube thumbnail domain isn't configured */}
-            <img
+            <Image
               src={slide.thumbnail}
               alt={`Slide ${index + 1}`}
-              className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              layout="fill"
+              objectFit="cover"
+              className="hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-black/20 hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
               <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-white/80 rounded-full flex items-center justify-center">
