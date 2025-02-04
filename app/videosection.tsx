@@ -5,12 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 const VideoSection = () => {
-  // Dummy video data
-  const videos = [
-    { id: "dQw4w9WgXcQ", link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-    { id: "9bZkp7q19f0", link: "https://www.youtube.com/watch?v=9bZkp7q19f0" },
-    { id: "3JZ_D3ELwOQ", link: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ" },
+  // Video data with links
+  const videoLinks = [
+    'https://www.youtube.com/watch?v=oOhp4UGSzYo',
+    'https://www.youtube.com/watch?v=h0Medvigy04',
+    'https://www.youtube.com/watch?v=qa5rM7Wczt8'
   ];
+
+  // Automatically extract video IDs from links
+  const videos = videoLinks.map(link => {
+    const id = link.split('v=')[1];
+    return { id, link };
+  });
 
   const [videoTitles, setVideoTitles] = useState<{ [key: string]: string }>({});
 
@@ -30,13 +36,13 @@ const VideoSection = () => {
   }, []);
 
   return (
-    <div className="m-6 py-6 bg-white" id="videos">
+    <div className="m-6 py-6 bg-white text-black rounded-2xl" id="videos">
       <h3 className="text-3xl font-semibold mb-6 text-center">Our Latest Videos</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {videos.map((video) => (
           <div
             key={video.id}
-            className="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition-all duration-300 cursor-pointer dark:bg-gray-800 dark:text-white"
+            className="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition-all duration-300 cursor-pointer"
             onClick={() => window.open(video.link, "_blank")}
           >
             <img

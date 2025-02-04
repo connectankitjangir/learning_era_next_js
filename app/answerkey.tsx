@@ -9,17 +9,25 @@ import {
   faCalculator,
 } from "@fortawesome/free-solid-svg-icons";
 
-// Dummy data for buttons (Replace with dynamic data)
-const answerKeyData = [
-  { button_name: "SSC CGL" },
-  { button_name: "BANK PO" },
-  { button_name: "UPSC" },
-];
-
 const AnswerKeySection = () => {
   const [animate, setAnimate] = useState(false);
+  const [answerKeyData, setAnswerKeyData] = useState([]);
 
   useEffect(() => {
+    // Fetch button names from the API
+    const fetchAnswerKeyData = async () => {
+      try {
+        const response = await fetch("https://api.learningera.co.in/answerkey/");
+        const data = await response.json();
+        setAnswerKeyData(data); // Assuming the API returns an array of objects with button_name property
+      } catch (error) {
+        console.error("Error fetching answer key data:", error);
+      }
+
+    };
+
+    fetchAnswerKeyData();
+
     setAnimate(true);
     const interval = setInterval(() => {
       setAnimate(false);
@@ -29,7 +37,7 @@ const AnswerKeySection = () => {
   }, []);
 
   return (
-    <section className="text-center bg-white mx-6 py-6 dark:bg-gray-900">
+    <section className="text-center bg-white mx-6 py-6 text-black rounded-2xl">
       {/* Title */}
       <h2 className="text-3xl font-semibold mb-6 md:text-4xl transition-all duration-300 ease-in-out">
         Submit your Answer Key
@@ -59,7 +67,7 @@ const AnswerKeySection = () => {
         {answerKeyData.map((key, index) => (
           <Link
             key={index}
-            href={`/marks-calculator/${key.button_name.toLowerCase().replace(/\s+/g, "-")}`}
+            href={`/answerkey/${key.button_name.toLowerCase().replace(/\s+/g, "-")}`}
             className="relative flex items-center justify-center text-lg cursor-pointer rounded-full font-bold 
                       bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white shadow-xl 
                       transform hover:scale-110 hover:shadow-2xl transition-all duration-300 ease-in-out 

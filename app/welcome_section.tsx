@@ -18,13 +18,14 @@ const WelcomeSection = () => {
   );
 
   return (
-    <section className="bg-[#e6b4b4] py-6 animate-fadeIn dark:bg-gray-600 m-6 dark:text-white">
+    <section className="bg-[#e6b4b4] py-6 animate-fadeIn  m-6 text-black rounded-2xl">
       <div className="container mx-auto text-center">
         {/* Title */}
-        <h1 className="text-5xl font-bold mb-4 pb-2.5 text-[rgb(37,8,8)] font-['Protest_Guerrilla'] animate-slideInDown dark:text-white flex justify-center items-center">
+        <h1 className="text-5xl font-bold mb-4 pb-2.5 text-[rgb(37,8,8)] font-['Protest_Guerrilla'] animate-slideInDown flex justify-center items-center">
           {icons.graduation}
           Welcome to Learning Era
         </h1>
+
 
         {/* Subtitle */}
         <p className="text-2xl italic mb-4 font-mono animate-slideInUp">

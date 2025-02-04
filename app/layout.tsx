@@ -36,7 +36,7 @@ export default function RootLayout({
         <link rel="icon" href="public/logo.jpg" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-200`}
       >
         <Header />
         

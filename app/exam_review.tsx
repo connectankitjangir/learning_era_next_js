@@ -32,14 +32,14 @@ const ExamReviewSection = () => {
     : "opacity-0 translate-x-[-20px]";
 
   return (
-    <section className="flex flex-col items-center justify-center  m-6 py-6 bg-white dark:text-white">
+    <section className="flex flex-col items-center justify-center  m-6 py-6 bg-white text-black rounded-2xl">
       {/* Title */}
       <h2 className="text-4xl font-semibold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">
         Exam Reviews
       </h2>
 
       {/* Animated List */}
-      <ul className="space-y-6 mb-8 text-lg text-gray-700 dark:text-gray-300 text-center">
+      <ul className="space-y-6 mb-8 text-lg text-gray-700 text-center">
         {[
           { icon: faChartBar, text: "Get personalized exam difficulty analysis based on your attempts", color: "text-purple-600" },
           { icon: faBullseye, text: "Receive accurate cutoff predictions for your category", color: "text-green-600" },

@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 const YOUTUBE_URLS = [
-  'https://www.youtube.com/watch?v=oOhp4UGSzYo',
-  'https://www.youtube.com/watch?v=h0Medvigy04',
-  'https://www.youtube.com/watch?v=x7ea8BC8fgc'
+  'https://www.youtube.com/watch?v=uVQIJ9KsDT4',
+  'https://www.youtube.com/watch?v=uSxm6KZ2jgI',
+  'https://www.youtube.com/watch?v=CNGbVMj4vlc'
 ];
 
 const PhotoSlider = () => {
