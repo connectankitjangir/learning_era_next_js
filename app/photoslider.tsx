@@ -65,8 +65,8 @@ const PhotoSlider = () => {
             <Image
               src={slide.thumbnail}
               alt={`Slide ${index + 1}`}
-              layout="fill"
-              objectFit="cover"
+              fill
+              style={{ objectFit: 'cover' }}
               className="hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-black/20 hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">

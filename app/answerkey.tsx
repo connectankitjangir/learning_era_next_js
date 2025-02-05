@@ -18,18 +18,11 @@ const AnswerKeySection = () => {
   const [answerKeyData, setAnswerKeyData] = useState<AnswerKey[]>([]); // Specify the type for answerKeyData
 
   useEffect(() => {
-    // Fetch button names from the API
-    const fetchAnswerKeyData = async () => {
-      try {
-        const response = await fetch("https://api.learningera.co.in/answerkey/");
-        const data: AnswerKey[] = await response.json(); // Specify the type for the fetched data
-        setAnswerKeyData(data); // Assuming the API returns an array of objects with button_name property
-      } catch (error) {
-        console.error("Error fetching answer key data:", error);
-      }
-    };
-
-    fetchAnswerKeyData();
+    // Dummy data for the button instead of fetching from API
+    const dummyData: AnswerKey[] = [
+      { button_name: "SSC CGL 2024 Answer Key" }
+    ];
+    setAnswerKeyData(dummyData); // Set the dummy data
 
     setAnimate(true);
     const interval = setInterval(() => {

@@ -4,23 +4,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTelegram, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import html2canvas from 'html2canvas';
+import { supabase } from "../../lib/supabase";
+
 
 interface Result {
-  roll_number: string;
+  roll_number: number;
   exam_date: string;
-  name: string;
-  cat1: string;
-  cat2: string;
-  cat3: string;
-  section_1_2_marks: string;
-  section_1_2_marks_with_bonous: string;
-  total_normalized_marks: string;
+  NAME: string;
+  CAT1: number;
+  CAT2: number;
+  CAT3: number;
+  total_normalized_marks: number;
   computer_status: string;
-  rank_by_section_1_2_marks: string;
-  rank_by_section_1_2_marks_with_bonous: string;
-  rank_by_total_normalized_marks: string;
+  rank_by_section_1_2_marks: number;
+  rank_by_section_1_2_marks_with_bonous: number;
 
+  rank_by_total_normalized_marks: number;
+  category_rank: number;
 }
+
 
 const SSCResultPage = () => {
   const [rollNumber, setRollNumber] = useState('');
@@ -33,34 +35,21 @@ const SSCResultPage = () => {
     setError('');
     setResult(null);
 
-    try {
-      const response = await fetch('https://api.learningera.co.in/ssc-results/ssc-cgl-2024/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ roll_number: rollNumber }),
-      });
+    if (!rollNumber) {
+      setError("Please enter a roll number.");
+      return;
+    }
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
-        
-        if (errorData.error === 'Result not found') {
-          setError('Please enter a valid roll number');
-        } else {
-          throw new Error('Network response was not ok');
-        }
-      } else {
-        const data: Result = await response.json();
-        setResult(data);
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setError('Error fetching results: ' + error.message);
-      } else {
-        setError('An unknown error occurred');
-      }
+    const { data, error } = await supabase
+      .from("cgl_2024_result")
+      .select("*")
+      .eq("roll_number", rollNumber)
+      .single();
+
+    if (error || !data) {
+      setError("No result found for this roll number.");
+    } else {
+      setResult(data);
     }
   };
 
@@ -165,35 +154,43 @@ const SSCResultPage = () => {
               </tr>
               <tr>
                 <td className="border border-gray-300 px-4 py-2"><strong>Name:</strong></td>
-                <td className="border border-gray-300 px-4 py-2">{result.name}</td>
+                <td className="border border-gray-300 px-4 py-2">{result.NAME}</td>
               </tr>
               <tr>
+
                 <td className="border border-gray-300 px-4 py-2"><strong>Category 1:</strong></td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {result.cat1 === '9' ? 'UR' : 
-                   result.cat1 === '6' ? 'OBC' : 
-                   result.cat1 === '0' ? 'EWS' : 
-                   result.cat1 === '1' ? 'SC' : 
-                   result.cat1 === '2' ? 'ST' : 
-                   result.cat1}
+                  {result.CAT1 == 9 ? 'UR' : 
+                   result.CAT1 == 6 ? 'OBC' : 
+                   result.CAT1 == 0 ? 'EWS' : 
+                   result.CAT1 == 1 ? 'SC' : 
+                   result.CAT1 == 2 ? 'ST' : 
+                   result.CAT1}
+
+
                 </td>
               </tr>
               <tr>
                 <td className="border border-gray-300 px-4 py-2"><strong>Category 2:</strong></td>
-                <td className="border border-gray-300 px-4 py-2">{result.cat2 === '3' ? 'ESM' : result.cat2 || '-'}</td>
+                <td className="border border-gray-300 px-4 py-2">{result.CAT2 == 3 ? 'ESM' : result.CAT2 || '-'}</td>
               </tr>
               <tr>
 
+
                 <td className="border border-gray-300 px-4 py-2"><strong>Category 3:</strong></td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {result.cat3 === '4' ? 'OH' :
-                   result.cat3 === '5' ? 'HH' :
-                   result.cat3 === '7' ? 'VH' :
-                   result.cat3 === '8' ? 'Other-PWD' :
+                  {result.CAT3 == 4 ? 'OH' :
+                   result.CAT3 == 5 ? 'HH' :
+                   result.CAT3 == 7 ? 'VH' :
+                   result.CAT3 == 8 ? 'Other-PWD' :
 
-                   result.cat3 || '-'}
+
+
+
+                   result.CAT3 || '-'}
                 </td>
               </tr>
+
 
               <tr className='bg-gray-100'>
                 <td className="border border-gray-300 px-4 py-2 text-blue-500"><strong>Exam Marks</strong></td>
@@ -202,14 +199,14 @@ const SSCResultPage = () => {
                   www.learningera.co.in
                 </td>
               </tr>
-              <tr>
+              {/* <tr>
                 <td className="border border-gray-300 px-4 py-2"><strong>Raw Marks:</strong></td>
                 <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.section_1_2_marks) : 'Data not found'}</td>
-              </tr>
-              <tr>
+              </tr> */}
+              {/* <tr>
                 <td className="border border-gray-300 px-4 py-2"><strong>Raw Marks with Bonus:</strong></td>
                 <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.section_1_2_marks_with_bonous) : 'Data not found'}</td>
-              </tr>
+              </tr> */}
               <tr>
                 <td className="border border-gray-300 px-4 py-2"><strong>Total Normalized Marks:</strong></td>
                 <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.total_normalized_marks) : 'Data not found'}</td>
@@ -236,6 +233,11 @@ const SSCResultPage = () => {
                 <td className="border border-gray-300 px-4 py-2"><strong>Normalized Marks Rank:</strong></td>
                 <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.computer_status === "F" ? 'Disqualified in Computer' : result.rank_by_total_normalized_marks) : 'Data not found'}</td>
               </tr>
+
+              {/* <tr>
+                <td className="border border-gray-300 px-4 py-2"><strong>Category Rank:</strong></td>
+                <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? 'Candidate Absent' : result.computer_status === "F" ? 'Disqualified in Computer' : result.category_rank) : 'Data not found'}</td>
+              </tr> */}
             </tbody>
           </table>
           <button onClick={downloadTableAsImage} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">

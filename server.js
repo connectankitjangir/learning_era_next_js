@@ -5,7 +5,7 @@ const next = require("next");
 const app = next({ dev: false }); // Production mode
 const handle = app.getRequestHandler();
 
-const PORT = process.env.PORT || 3002; // Use cPanel-assigned port
+const PORT = process.env.PORT || 3005; // Use cPanel-assigned port
 
 app.prepare().then(() => {
   createServer((req, res) => {
