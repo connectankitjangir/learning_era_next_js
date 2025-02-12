@@ -20,7 +20,7 @@ const AboutUsPage = () => {
       </p>
       <h2 className="text-2xl font-semibold mb-2">Get in Touch</h2>
       <p>
-        If you have any questions or feedback, feel free to reach out to us at <a href="mailto:contact@learningera.co.in" className="text-blue-500">info@example.com</a>.
+        If you have any questions or feedback, feel free to reach out to us at <a href="mailto:contact@learningera.co.in" className="text-blue-500">contact@learningera.co.in</a>.
       </p>
       <h2 className="text-2xl font-semibold mb-2">Follow Us</h2>
       <p className="flex items-center mb-4">
