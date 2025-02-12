@@ -32,7 +32,7 @@ const ExamReviewSection = () => {
     : "opacity-0 translate-x-[-20px]";
 
   return (
-    <section className="flex flex-col items-center justify-center  m-6 py-6 bg-white text-black rounded-2xl">
+    <section className="flex flex-col items-center justify-center  m-3 p-6 bg-white text-black rounded-2xl">
       {/* Title */}
       <h2 className="text-4xl font-semibold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">
         Exam Reviews
@@ -52,8 +52,8 @@ const ExamReviewSection = () => {
             className={`flex items-center justify-center transition-all duration-700 ease-out ${animateClass}`}
             style={{ transitionDelay: `${index * 300}ms` }}
           >
-            <FontAwesomeIcon icon={item.icon} className={`mr-4 text-xl ${item.color}`} />
-            <span>{item.text}</span>
+            
+            <span><FontAwesomeIcon icon={item.icon} className={`mr-4 text-xl ${item.color}`} />{item.text}</span>
           </li>
         ))}
       </ul>

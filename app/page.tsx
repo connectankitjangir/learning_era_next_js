@@ -1,7 +1,7 @@
 
 
-import WelcomeSection from "./welcome_section";
-import PhotoSlider from "./photoslider";
+// import WelcomeSection from "./welcome_section";
+// import PhotoSlider from "./photoslider";
 import AnswerKeySection from "./answerkey";
 import ExamReviewSection from "./exam_review";
 import VideoSection from "./videosection";
@@ -11,13 +11,13 @@ import SSCResult from "./ssc_result";
 export default function Home() {
   return (
    <>
-    <WelcomeSection />
+    {/* <WelcomeSection /> */}
 
     <SSCResult />
-    <PhotoSlider />
+    {/* <PhotoSlider /> */}
     <AnswerKeySection />
     <ExamReviewSection />
-    {/* <VideoSection /> */}
+    <VideoSection />
   
    </>
   );

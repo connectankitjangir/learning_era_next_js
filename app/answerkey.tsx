@@ -15,15 +15,9 @@ interface AnswerKey {
 
 const AnswerKeySection = () => {
   const [animate, setAnimate] = useState(false);
-  const [answerKeyData, setAnswerKeyData] = useState<AnswerKey[]>([]); // Specify the type for answerKeyData
+  const [answerKeyData] = useState<AnswerKey[]>([]); // Removed setAnswerKeyData to avoid unused variable warning
 
   useEffect(() => {
-    // Dummy data for the button instead of fetching from API
-    const dummyData: AnswerKey[] = [
-      { button_name: "SSC CGL 2024 Answer Key" }
-    ];
-    setAnswerKeyData(dummyData); // Set the dummy data
-
     setAnimate(true);
     const interval = setInterval(() => {
       setAnimate(false);
@@ -33,7 +27,7 @@ const AnswerKeySection = () => {
   }, []);
 
   return (
-    <section className="text-center bg-white mx-6 py-6 text-black rounded-2xl">
+    <section className="text-center bg-white mx-3 p-6 text-black rounded-2xl">
       {/* Title */}
       <h2 className="text-3xl font-semibold mb-6 md:text-4xl transition-all duration-300 ease-in-out">
         Submit your Answer Key
@@ -52,8 +46,8 @@ const AnswerKeySection = () => {
               ${animate ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-5"}`}
             style={{ transitionDelay: `${index * 300}ms` }}
           >
-            <FontAwesomeIcon icon={item.icon} className="mr-3 text-xl text-gradient" />
-            <span className="text-lg">{item.text}</span>
+            
+            <span className="text-lg"><FontAwesomeIcon icon={item.icon} className="mr-3 text-xl text-gradient" />{item.text}</span>
           </li>
         ))}
       </ul>

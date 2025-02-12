@@ -18,19 +18,25 @@ const WelcomeSection = () => {
   );
 
   return (
-    <section className="bg-[#e6b4b4] py-6 animate-fadeIn  m-6 text-black rounded-2xl">
+    <section className="bg-[#e6b4b4] py-6 animate-fadeIn  m-3 my-6 text-black rounded-2xl">
       <div className="container mx-auto text-center">
         {/* Title */}
-        <h1 className="text-5xl font-bold mb-4 pb-2.5 text-[rgb(37,8,8)] font-['Protest_Guerrilla'] animate-slideInDown flex justify-center items-center">
-          {icons.graduation}
-          Welcome to Learning Era
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 pb-2.5 text-[rgb(37,8,8)] font-['Protest_Guerrilla'] animate-slideInDown flex flex-col items-center">
+          <div className="flex items-center justify-center text-3xl md:text-4xl lg:text-5xl">
+            {icons.graduation}
+            <span className="ml-2">Welcome</span>
+          </div>
+          <div className="text-2xl md:text-3xl">to</div>
+          <div className="flex items-center justify-center text-3xl md:text-4xl lg:text-5xl font-serif text-blue-600 italic underline">
+            <span>Learning Era</span>
+          </div>
         </h1>
 
 
         {/* Subtitle */}
-        <p className="text-2xl italic mb-4 font-mono animate-slideInUp">
+        {/* <p className="text-2xl italic mb-4 font-mono animate-slideInUp">
           Your gateway to professional education and exam success!
-        </p>
+        </p> */}
 
         {/* Action Buttons */}
         <div className="flex flex-wrap gap-4 justify-center">
