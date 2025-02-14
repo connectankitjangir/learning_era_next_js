@@ -12,7 +12,7 @@
       "static/chunks/4bd1b696-f6465e5a7a198442.js",
       "static/chunks/517-f5f0a7d707a89333.js",
       "static/chunks/main-app-427717810dd0b899.js",
-      "static/css/341397a434abd6ca.css",
+      "static/css/94ab7fd260d1f581.css",
       "static/chunks/870fdd6f-ec273ca4eee1dd21.js",
       "static/chunks/69b09407-bab0f75ab38e0e96.js",
       "static/chunks/757-af3dbf3b58f23a56.js",
@@ -25,7 +25,7 @@
       "static/chunks/4bd1b696-f6465e5a7a198442.js",
       "static/chunks/517-f5f0a7d707a89333.js",
       "static/chunks/main-app-427717810dd0b899.js",
-      "static/chunks/app/about-us/page-ae79e3bf62904d5d.js"
+      "static/chunks/app/about-us/page-d4a88dd57970d5b7.js"
     ],
     "/answerkey/[exam]/page": [
       "static/chunks/webpack-e30a7af4450c7afa.js",
@@ -39,7 +39,7 @@
       "static/chunks/4bd1b696-f6465e5a7a198442.js",
       "static/chunks/517-f5f0a7d707a89333.js",
       "static/chunks/main-app-427717810dd0b899.js",
-      "static/chunks/app/exam-review/page-7386e450a04380c3.js"
+      "static/chunks/app/exam-review/page-b268ce0053475db8.js"
     ],
     "/feedback/page": [
       "static/chunks/webpack-e30a7af4450c7afa.js",
@@ -60,7 +60,14 @@
       "static/chunks/757-af3dbf3b58f23a56.js",
       "static/chunks/173-cd9cc5704c225cf9.js",
       "static/chunks/565-c5103e12d4ccd9c5.js",
-      "static/chunks/app/page-bb634b7fa2ed3ceb.js"
+      "static/chunks/app/page-4d912d1e71d8126c.js"
+    ],
+    "/ssc-cgl-2024/generate-rank/page": [
+      "static/chunks/webpack-e30a7af4450c7afa.js",
+      "static/chunks/4bd1b696-f6465e5a7a198442.js",
+      "static/chunks/517-f5f0a7d707a89333.js",
+      "static/chunks/main-app-427717810dd0b899.js",
+      "static/chunks/app/ssc-cgl-2024/generate-rank/page-2541354fe03cb232.js"
     ],
     "/ssc-cgl-2024/page": [
       "static/chunks/webpack-e30a7af4450c7afa.js",
@@ -71,8 +78,9 @@
       "static/chunks/69b09407-bab0f75ab38e0e96.js",
       "static/chunks/ad2866b8-214ee3643fd29537.js",
       "static/chunks/757-af3dbf3b58f23a56.js",
+      "static/chunks/173-cd9cc5704c225cf9.js",
       "static/chunks/736-2a88ed0a4c40cde6.js",
-      "static/chunks/app/ssc-cgl-2024/page-42a7147e5f0b4f41.js"
+      "static/chunks/app/ssc-cgl-2024/page-53a650e3a29b1108.js"
     ],
     "/typing-tests/page": [
       "static/chunks/webpack-e30a7af4450c7afa.js",

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from 'next/link';
 
-const RELEASE_TIME = new Date("2025-02-13T17:15:00").getTime(); // UTC time
+const RELEASE_TIME = new Date("2025-02-17T17:15:00").getTime(); // UTC time
 
 const SSCResult = () => {
   const [timeLeft, setTimeLeft] = useState(RELEASE_TIME - Date.now());
@@ -19,7 +19,7 @@ const SSCResult = () => {
   }, []);
 
   const formatTime = (ms: number) => {
-    if (ms <= 0) return "Category Rank is Now Available!";
+    if (ms <= 0) return "Rank is Now Available!";
     
     const seconds = Math.floor(ms / 1000) % 60;
     const minutes = Math.floor(ms / (1000 * 60)) % 60;
@@ -41,7 +41,7 @@ const SSCResult = () => {
         This tool is helpful for self-analysis and post-preference decisions.
       </p>
       <div className="flex flex-col items-center justify-center bg-gradient-to-r from-green-400 to-blue-500 text-white p-2 rounded-lg shadow-xl m-6 md:mx-[30%]">
-        <h3 className="text-lg md:text-xl font-semibold mb-1">Zone & State Wise Rank will be available in:</h3>
+        <h3 className="text-lg md:text-xl font-semibold mb-1">Age & CPT Wise Rank will be available in:</h3>
         <p className="text-md md:text-lg">
           {isMounted && (
             <span className="font-extrabold text-xl md:text-2xl">{formatTime(timeLeft)}</span>

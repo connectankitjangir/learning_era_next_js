@@ -7,8 +7,9 @@ import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import html2canvas from 'html2canvas';
 import { supabase } from "../../lib/supabase";
 import Head from 'next/head';
+import Link from 'next/link';
 
-const RELEASE_TIME = new Date("2025-02-13T17:15:00").getTime();
+const RELEASE_TIME = new Date("2025-02-17T17:15:00").getTime();
 
 interface Result {
   roll_number: number;
@@ -134,6 +135,14 @@ export default function SSCResultPage() {
             Submit
           </button>
         </form>
+
+        <div className="mt-4">
+          <h3 className="text-2xl font-bold">Generate Your Rank</h3>
+          <p className="mb-2">To generate your rank using custom filters, please visit the following link:</p>
+          <Link href="/ssc-cgl-2024/generate-rank" className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+            Generate Rank
+          </Link>
+        </div>
 
         {error && <p className="text-red-500">{error}</p>}
 
@@ -277,35 +286,34 @@ export default function SSCResultPage() {
                     <td className="border border-gray-300 px-4 py-2"><strong>Category Rank (Normalized Marks):</strong></td>
                     <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? '-' : result.computer_status === "F" ? 'Disqualified in Computer' : result.category_rank) : 'Data not found'}</td>
                   </tr>
-                    {showRank && (
+                   
                       <tr>
                         <td className="border border-gray-300 px-4 py-2"><strong>Zone Rank (Without Category):</strong></td>
                         <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? '-' : result.computer_status === "F" ? 'Disqualified in Computer' : result.zone_rank_all_india) : 'Data not found'}</td>
                       </tr>
-                    )}
-                    {showRank && (
+                  
+              
                       <tr>
                         <td className="border border-gray-300 px-4 py-2"><strong>State Rank (Without Category):</strong></td>
                         <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? '-' : result.computer_status === "F" ? 'Disqualified in Computer' : result.state_rank_all_india) : 'Data not found'}</td>
                       </tr>
-                    )}
+                   
                 
-                {showRank && (
+             
                   <tr>
                     <td className="border border-gray-300 px-4 py-2"><strong>Zone Rank (With Category):</strong></td>
                     <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? '-' : result.computer_status === "F" ? 'Disqualified in Computer' : result.zone_rank) : 'Data not found'}</td>
                   </tr>
-                )}
-                {showRank && (
+               
                   <tr>
                     <td className="border border-gray-300 px-4 py-2"><strong>State Rank (With Category):</strong></td>
                     <td className="border border-gray-300 px-4 py-2">{result.exam_date ? (result.exam_date === "ABSENT" ? '-' : result.computer_status === "F" ? 'Disqualified in Computer' : result.state_rank) : 'Data not found'}</td>
                   </tr>
-                )}
+              
                 {!showRank && (
                   <tr>
-                    <td className="border border-gray-300 px-4 py-2"><strong> Zone & State Wise Rank :</strong></td>
-                    <td className="px-4 py-2 text-blue-500 font-bold animate-pulse">Zone & State Wise Rank will be available soon!</td>
+                    <td className="border border-gray-300 px-4 py-2"><strong> Age & CPT Wise Rank :</strong></td>
+                    <td className="px-4 py-2 text-blue-500 font-bold animate-pulse">Age & CPT Wise Rank will be available soon!</td>
                   </tr>
                 )}
               </tbody>
